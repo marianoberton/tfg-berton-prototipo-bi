@@ -28,9 +28,17 @@ Trabajo Final de Grado, Licenciatura en Ciencia de Datos, Universidad Siglo 21. 
 | 6 | Agente | Una métrica con su definición; un cliente y qué ofrecerle; un pedido de datos personales, rechazado; una tarea, que pide aprobación. |
 | 7 | Administración | Estado de cada carga y revisión de las sugerencias de identidad, una por una. |
 
-## Aplicación en línea
+## Probarlo
 
-https://mpbi.161-97-160-180.sslip.io. Requiere una cuenta; como muestra datos reales de la empresa, el usuario para el tribunal se entrega a pedido.
+**Instancia de demostración** (misma aplicación, datos sintéticos): https://demo-mpbi.161-97-160-180.sslip.io
+
+| Rol | Usuario | Clave |
+|---|---|---|
+| Dirección | direccion@mpbi-demo.ar | PhdLNEz671UN |
+| Ventas | ventas@mpbi-demo.ar | H8sBcPEiuyeF |
+| Administración | administracion@mpbi-demo.ar | CkJT77O3YAgK |
+
+La instancia real, https://mpbi.161-97-160-180.sslip.io, muestra datos reales de la empresa y por eso requiere una cuenta que se entrega a pedido.
 
 <details>
 <summary><b>Instalación y ejecución</b> (Anexo E del informe)</summary>
