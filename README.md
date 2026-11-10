@@ -1,52 +1,62 @@
-# Prototipo de inteligencia de negocios conversacional y proactiva para una PyME industrial
+# Market Paper BI
 
-Trabajo Final de Grado, Licenciatura en Ciencia de Datos, Universidad Siglo 21. Autor: Mariano Berton. Tutor: Víctor Omar Palazzesi. Noviembre de 2026.
+Prototipo de inteligencia de negocios **conversacional y proactiva** para una PyME industrial: junta las ventas del ERP con el CRM, resuelve quién es cada cliente, y sobre un catálogo único de métricas ofrece un tablero, un agente que responde en lenguaje natural y alertas que le asignan una tarea concreta a un vendedor.
 
-## Qué es el prototipo
+Trabajo Final de Grado, Licenciatura en Ciencia de Datos, Universidad Siglo 21. Mariano Berton, noviembre de 2026.
 
-Es un sistema de inteligencia de negocios para una fábrica de cartón con tres canales de venta (mayorista, tienda en línea y local). Reúne en una sola base los datos del sistema de gestión, del CRM y de la tienda en línea, resuelve la identidad de cada cliente entre esas fuentes, calcula un catálogo gobernado de métricas y, sobre ese catálogo, ofrece un tablero, un agente conversacional que responde en lenguaje natural y un motor de alertas que propone tareas al vendedor responsable. El código fuente permanece en un repositorio privado; este repositorio publica el demo y el tutorial de uso.
+![Recorrido por el prototipo](demo/recorrido.gif)
 
-## Demo
+**Video completo (1 min, sin sonido):** [demo/TP4_demo_Berton_Mariano.mp4](demo/TP4_demo_Berton_Mariano.mp4). Importes reales; nombres de clientes y de personas reemplazados por seudónimos.
 
-- Video del recorrido (un minuto, sin sonido): [demo/TP4_demo_Berton_Mariano.mp4](demo/TP4_demo_Berton_Mariano.mp4). Recorre las pantallas de la aplicación instalada en el servidor el 9 de noviembre de 2026, con importes reales y nombres de clientes y de personas reemplazados por seudónimos. No incluye el agente conversacional, cuyas respuestas se reproducen en el Anexo H del informe.
-- Aplicación en línea: https://mpbi.161-97-160-180.sslip.io. Requiere una cuenta; como muestra datos reales de la empresa, el usuario para el tribunal se entrega a pedido.
+## Qué hace
 
-## Tutorial de uso
+- **Una sola base** con las ventas del ERP y los registros del CRM, que conserva el dato original y define cada métrica una sola vez, con fórmula y versión.
+- **Cartera mayorista** ordenada por probabilidad de compra a 60 días, con la próxima reposición de cada cliente y las categorías que abandonó.
+- **Alertas con responsable**: cliente atrasado, reposición pendiente, categoría abandonada. Cada una propone qué ofrecer y queda en la lista de tareas del vendedor.
+- **Agente conversacional** que responde sólo con las métricas del catálogo, muestra la definición que usó, rechaza pedidos de datos personales y no ejecuta nada sin aprobación.
+- **Identidad de clientes** entre sistemas: reglas exactas (CUIT, correo) y sugerencias por nombre que una persona aprueba o rechaza.
 
-El recorrido sigue el flujo de trabajo de los usuarios. Entre paréntesis, la historia de usuario del product backlog que cubre cada paso.
+## Recorrido
 
-1. **Ingreso por rol.** Se entra con usuario y contraseña. Cada rol ve lo que le corresponde: la dueña ve la cartera completa y la administración; la vendedora, su cartera y sus tareas.
-2. **Resumen (HU-05).** Ventas netas por canal del último mes cerrado contra el anterior, ventas en riesgo de la cartera mayorista, alertas abiertas por severidad y fecha del último dato de cada fuente.
-3. **Cartera mayorista (HU-06 y HU-07).** Clientes ordenados por probabilidad de compra en los próximos 60 días, con su cadencia habitual, su próxima reposición prevista y sus categorías abandonadas.
-4. **Ficha de un cliente (HU-08).** Compras, ciclo de reposición por artículo, categorías y alertas abiertas, sin datos personales: la ficha no muestra CUIT, teléfonos ni correos.
-5. **Alertas y mis tareas (HU-09).** Cada alerta indica la regla que la disparó, el responsable y la tarea propuesta. Se reconoce o se resuelve desde la pantalla, y queda reflejada en la lista de tareas del responsable.
-6. **Chat con el agente (HU-10 y HU-11).** Se le pregunta por una métrica y responde con su valor, su definición y su versión del catálogo; se le pregunta por un cliente y qué ofrecerle; si se le piden datos personales, lo rechaza; si propone una tarea, requiere aprobación y se ejecuta en modo de simulación.
-7. **Administración (HU-01 y HU-03).** Estado de cada corrida de carga por fuente y revisión de las sugerencias de identidad: pares de clientes posiblemente duplicados entre el CRM y el sistema de gestión, que una persona aprueba o rechaza uno por uno.
+| Paso | Pantalla | Qué se ve |
+|---|---|---|
+| 1 | Ingreso | Cada rol ve lo suyo: la dueña, toda la cartera; la vendedora, su cartera y sus tareas. |
+| 2 | Resumen | Ventas netas por canal, ventas en riesgo, alertas abiertas y fecha del último dato de cada fuente. |
+| 3 | Cartera mayorista | Clientes por probabilidad de compra, cadencia habitual, próxima reposición y categorías abandonadas. |
+| 4 | Ficha del cliente | Compras, ciclo por artículo y alertas abiertas. Sin CUIT, teléfonos ni correos. |
+| 5 | Alertas y mis tareas | Regla, responsable y tarea propuesta; se reconoce o se resuelve desde la pantalla. |
+| 6 | Agente | Una métrica con su definición; un cliente y qué ofrecerle; un pedido de datos personales, rechazado; una tarea, que pide aprobación. |
+| 7 | Administración | Estado de cada carga y revisión de las sugerencias de identidad, una por una. |
 
-## Instalación y ejecución
+## Aplicación en línea
 
-Los requisitos son Python 3.12 con el gestor de paquetes uv, Node.js con pnpm y una base PostgreSQL 15 o superior; para la instalación en un servidor se requiere además Docker. Las claves de los servicios externos (HubSpot y el proveedor del modelo de lenguaje) y la cadena de conexión a la base se configuran en un archivo de entorno que no forma parte del repositorio.
+https://mpbi.161-97-160-180.sslip.io. Requiere una cuenta; como muestra datos reales de la empresa, el usuario para el tribunal se entrega a pedido.
 
-Entorno de desarrollo. Después de clonar el repositorio de código y de crear el archivo de entorno, se ejecutan los siguientes comandos desde la carpeta raíz:
+<details>
+<summary><b>Instalación y ejecución</b> (Anexo E del informe)</summary>
+
+Requisitos: Python 3.12 con `uv`, Node.js con `pnpm`, PostgreSQL 15 o superior; para el servidor, Docker. Las claves (HubSpot, proveedor del modelo de lenguaje) y la conexión a la base van en un archivo de entorno fuera del repositorio.
+
+Entorno de desarrollo, desde la raíz del repositorio de código:
 
 ```bash
 uv sync --all-packages              # dependencias de Python
 pnpm install                        # dependencias de la aplicación web
-pnpm db:push                        # aplica las migraciones de db/migrations
-uv run mpbi seed load               # mapeos de sucursales y de vendedores
-uv run mpbi ingest erp              # carga los reportes de data/erp/inbox
+pnpm db:push                        # aplica las migraciones
+uv run mpbi seed load               # mapeos de sucursales y vendedores
+uv run mpbi ingest erp              # reportes del ERP (data/erp/inbox)
 uv run mpbi ingest hubspot --since 2025-01-01
 uv run mpbi identity                # identidad de clientes
 uv run mpbi transform               # vistas materializadas
-uv run mpbi model recompra          # evaluación y probabilidad de compra
-uv run mpbi alerts run              # evaluación de las reglas de alerta
+uv run mpbi model recompra          # probabilidad de compra
+uv run mpbi alerts run              # reglas de alerta
 uv run uvicorn metrics_api.main:app # API de métricas
 pnpm --filter web dev               # aplicación web
 uv run pytest -q                    # pruebas automáticas
 uv run mpbi catalog validate        # validación del catálogo
 ```
 
-Servidor. La instalación completa en un servidor con Docker se hace con un único guion, que copia el código, construye las imágenes, crea la base y sus roles, aplica las migraciones, levanta los servicios y deja programadas las tareas de carga, alertas y respaldo. Las cuentas de los usuarios se crean con un segundo guion, que recibe el correo y el rol:
+Servidor: un solo guion instala o actualiza todo (imágenes, base, migraciones, servicios y tareas programadas de carga, alertas y respaldo).
 
 ```bash
 bash deploy/vps/instalar.sh                      # instala o actualiza
@@ -54,8 +64,8 @@ deploy/vps/usuario.sh <correo> <rol>             # crea un usuario
 bash scripts/pipeline.sh diaria|hubspot|alertas  # corre una tarea a mano
 ```
 
-La evaluación del agente se ejecuta sobre una base de pruebas con datos sintéticos, nunca sobre la base con datos reales, y requiere la clave del proveedor del modelo de lenguaje.
+</details>
 
-## Datos
+## Sobre este repositorio
 
-Los datos reales de la empresa son confidenciales y no se publican. Este repositorio no contiene código, datos, claves ni capturas con datos reales.
+Publica el demo y el tutorial. El código fuente permanece en un repositorio privado. Los datos de la empresa son confidenciales: acá no hay código, datos, claves ni capturas con nombres reales.
